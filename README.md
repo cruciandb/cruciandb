@@ -1,1 +1,3 @@
 # cruciandb
+
+Hello world database.
