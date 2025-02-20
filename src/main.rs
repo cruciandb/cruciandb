@@ -1,6 +1,7 @@
 use clap::Parser;
 
-mod cli_exec;
+mod cli;
+pub mod command;
 
 pub const DEFAULT_DB_NAME: &str = "db";
 
@@ -20,7 +21,7 @@ pub(crate) struct Args {
 fn main() {
     let args = Args::parse();
     println!("Starting for: {} at {:?}", args.database, args.path);
-    match cli_exec::run_cli_exec_loop(&args) {
+    match cli::run_cli_exec_loop(&args) {
         Ok(_) => println!("Exit normally"),
         Err(e) => println!("Exit with error: {:?}", e),
     }
