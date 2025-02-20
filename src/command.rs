@@ -48,40 +48,39 @@ mod tests {
         assert!(matches!(res.unwrap(), Command::Quit));
         let res = Command::from_str("help");
         assert!(res.is_ok());
-        assert!(matches!(res.unwrap(), Command::Help));         
+        assert!(matches!(res.unwrap(), Command::Help));
     }
 
     #[test]
     pub fn parse_command_with_args_test() {
         let res = Command::from_str("get 1");
         assert!(res.is_ok());
-        match res.unwrap() {           
+        match res.unwrap() {
             Command::Get(key) => assert_eq!(key, "1"),
-            _ => panic!("res is not a 'Get' command"), 
+            _ => panic!("res is not a 'Get' command"),
         }
-        
+
         let res = Command::from_str("delete 1");
         assert!(res.is_ok());
-        match res.unwrap() {           
+        match res.unwrap() {
             Command::Delete(key) => assert_eq!(key, "1"),
-            _ => panic!("res is not a 'Delete' command"), 
+            _ => panic!("res is not a 'Delete' command"),
         }
 
         let res = Command::from_str("put 1 2");
         assert!(res.is_ok());
-        match res.unwrap() {           
+        match res.unwrap() {
             Command::Put(key, val) => {
                 assert_eq!(key, "1");
                 assert_eq!(val, "2");
-            },
-            _ => panic!("res is not a 'Put' command"), 
+            }
+            _ => panic!("res is not a 'Put' command"),
         }
     }
-
 
     #[test]
     pub fn parse_unknown_command_test() {
         let res = Command::from_str("unknown_command");
-        assert!(res.is_err());        
+        assert!(res.is_err());
     }
 }
