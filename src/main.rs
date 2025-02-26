@@ -4,6 +4,7 @@ mod cli;
 pub mod command;
 
 pub const DEFAULT_DB_NAME: &str = "db";
+pub const DEFAULT_DB_PATH: &str = "./data";
 
 /// Simple storage with command line interface
 #[derive(Parser, Debug)]
@@ -14,7 +15,7 @@ pub(crate) struct Args {
     database: String,
 
     /// Path to store data
-    #[arg(short, long)]
+    #[arg(short, long, default_value = DEFAULT_DB_PATH)]
     path: std::path::PathBuf,
 }
 
