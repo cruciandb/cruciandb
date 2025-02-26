@@ -1,7 +1,9 @@
 use clap::Parser;
+use storage::mem::MemStorage;
 
 mod cli;
 pub mod command;
+pub mod storage;
 
 pub const DEFAULT_DB_NAME: &str = "db";
 pub const DEFAULT_DB_PATH: &str = "./data";
@@ -22,7 +24,8 @@ pub(crate) struct Args {
 fn main() {
     let args = Args::parse();
     println!("Starting for: {} at {:?}", args.database, args.path);
-    match cli::run_cli_exec_loop(&args) {
+    let mut storage: MemStorage<String, String> = MemStorage::new();
+    match cli::run_cli_exec_loop(&mut storage) {
         Ok(_) => println!("Exit normally"),
         Err(e) => println!("Exit with error: {:?}", e),
     }
