@@ -79,4 +79,70 @@ mod tests {
         assert!(res_delete.is_ok());
         assert_eq!(None, res_delete.unwrap());
     }
+
+    #[test]
+    pub fn test_i32() {
+        let mut storage: MemStorage<i32, i32> = MemStorage::new();
+        let key = 1;
+        let value = 2;
+        let next_value = 3;
+
+        let res_get = storage.get(&key);
+        assert!(res_get.is_ok());
+        assert_eq!(None, res_get.unwrap());
+
+        let res_set = storage.set(&key, value.clone());
+        assert!(res_set.is_ok());
+        assert_eq!(None, res_set.unwrap());
+
+        let res_get = storage.get(&key);
+        assert!(res_get.is_ok());
+        assert_eq!(Some(value.clone()), res_get.unwrap());
+
+        let res_set = storage.set(&key, next_value.clone());
+        assert!(res_set.is_ok());
+        assert_eq!(Some(value.clone()), res_set.unwrap());
+
+        let res_delete = storage.delete(&key);
+        assert!(res_delete.is_ok());
+        assert_eq!(Some(next_value.clone()), res_delete.unwrap());
+
+        let res_delete = storage.delete(&key);
+        assert!(res_delete.is_ok());
+        assert_eq!(None, res_delete.unwrap());
+    }
+
+    #[test]
+    pub fn test_usize_byte_array() {
+        let mut storage: MemStorage<usize, Vec<u8>> = MemStorage::new();
+        let key = 1;
+        let value = vec![1, 1, 1, 1, 1, 1, 1, 1];
+        let next_value = vec![2, 3, 1, 1, 1, 1, 1, 1];
+
+        let res_get = storage.get(&key);
+        assert!(res_get.is_ok());
+        assert_eq!(None, res_get.unwrap());
+
+        let res_set = storage.set(&key, value.clone());
+        assert!(res_set.is_ok());
+        assert_eq!(None, res_set.unwrap());
+
+        let res_get = storage.get(&key);
+        assert!(res_get.is_ok());
+        assert_eq!(Some(value.clone()), res_get.unwrap());
+
+        let res_set = storage.set(&key, next_value.clone());
+        assert!(res_set.is_ok());
+        assert_eq!(Some(value.clone()), res_set.unwrap());
+
+        let res_delete = storage.delete(&key);
+        assert!(res_delete.is_ok());
+        assert_eq!(Some(next_value.clone()), res_delete.unwrap());
+
+        let res_delete = storage.delete(&key);
+        assert!(res_delete.is_ok());
+        assert_eq!(None, res_delete.unwrap());
+    }
+
+    
 }
